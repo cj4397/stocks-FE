@@ -1,0 +1,31 @@
+.sidenav {
+    margin: 0%;
+    padding: 0%;
+
+    overflow: hidden;
+    transition: all 1s;
+    width: 0px;
+    min-height: 100%;
+
+}
+
+
+
+
+.container {
+    height: 100%;
+}
+
+.logout {
+    position: fixed;
+    overflow: hidden;
+    bottom: 2%;
+    transition: all 1s;
+    width: 0px;
+}
+
+.show {
+
+    width: 200px;
+
+}

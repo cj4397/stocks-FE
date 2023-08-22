@@ -1,95 +1,58 @@
-import Image from 'next/image'
+'use client';
+
+import { useState } from "react";
 import styles from './page.module.css'
 
+import { Login, Sign_up } from "./components/login/login&signup";
+
 export default function Home() {
+
+  const [slide, setSlide] = useState(false);
+
+
+  const slide_animation = () => {
+    setSlide(slide ? false : true)
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main id={styles.body}>
+
+      <div className={`${styles.container} , ${slide ? styles.right_panel_active : ''}`} id="sidebar">
+
+        <div className={`${styles.form_container} ${styles.sign_up_container}`}>
+
+          <Sign_up />
+
+        </div>
+
+        <div className={`${styles.form_container} ${styles.sign_in_container}`}>
+          <Login />
+
+        </div>
+
+        <div className={styles.overlay_container}>
+          <div className={styles.overlay}>
+
+            <div className={`${styles.overlay_panel} ${styles.overlay_left}`}>
+              <h1 className={styles.h1}>Hello, Friend!</h1>
+              <p className={styles.p}>Enter your personal details and start journey with us</p>
+              <button onClick={slide_animation} className={styles.ghost}
+                id="signIn">Sign In</button>
+            </div>
+
+            <div className={`${styles.overlay_panel} ${styles.overlay_right}`}>
+              <h1 className={styles.h1}>Welcome Back!</h1>
+              <p className={styles.p}>To keep connected with us please login with your personal info</p>
+              <button
+                onClick={slide_animation}
+
+                className={styles.ghost} id="signUp">Sign Up</button>
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </main >
   )
 }
