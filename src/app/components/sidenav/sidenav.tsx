@@ -1,5 +1,5 @@
 'use client';
-import Link from "next/link"
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { useAuth } from "../auth"
 import style from './sidenav.module.css'
@@ -12,8 +12,11 @@ export default function Sidenav() {
     const { logout } = useAuth()
     const [show, setShow] = useState(true)
     const [icon, setIcon] = useState(<FontAwesomeIcon icon={faAnglesLeft} />)
-
     const pathname = usePathname()
+
+    const [market, setMarket] = useState('')
+
+
 
     const change = () => {
         setShow(show ? false : true)
@@ -21,13 +24,8 @@ export default function Sidenav() {
     }
 
     return (
-        // <div id="link-container">
-        //     <h1>Side Navigation</h1>
-        //     <Link href='/dashboard/task' classNameName="links">Create</Link>
-        //     <Link href='/dashboard' classNameName="links">Task</Link>
-        //     <div classNameName="links" onClick={() => logout()}>Log Out</div>
-        // </div>
-        <div className={`${style.container} is-flex is-flex-direction-row has-background-black `}>
+
+        <div className={`${style.container} is-flex is-flex-direction-row h-100 `}>
             <aside className={`${style.sidenav} ${show ? style.show : ''}`}>
                 <p className="menu-label">
                     General
@@ -40,9 +38,23 @@ export default function Sidenav() {
                     Market
                 </p>
                 <ul className="menu-list">
-                    <li className={pathname == "/dashboard/low_market" ? "active" : ""}><Link href='/dashboard/low_market'>Low Tier Market</Link></li>
-                    <li className={pathname == "/dashboard/mid_market" ? "active" : ""}><Link href='/dashboard/mid_market'>Mid Tier Market</Link></li>
-                    <li className={pathname == "/dashboard/high_market" ? "active" : ""}><Link href='/dashboard/high_market'>High Tier Market</Link></li>
+                    <li onClick={() => setMarket('low')} className={(pathname == "/dashboard/low") ? "active" : ""} >
+                        <Link href={{
+                            pathname: '/dashboard/low',
+                            query: { market: 'low' },
+                        }}
+                            as='/dashboard/low'
+                        >Low Tier Market</Link></li>
+                    <li onClick={() => setMarket('mid')} className={(pathname == "/dashboard/mid") ? "active" : ""}><Link href={{
+                        pathname: '/dashboard/mid',
+                        query: { market: 'mid' },
+                    }}
+                        as='/dashboard/mid'>Mid Tier Market</Link></li>
+                    <li onClick={() => setMarket('high')} className={(pathname == "/dashboard/high") ? "active" : ""}><Link href={{
+                        pathname: '/dashboard/high',
+                        query: { market: 'high' },
+                    }}
+                        as='/dashboard/high'>High Tier Market</Link></li>
                 </ul>
 
 

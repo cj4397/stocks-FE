@@ -5,16 +5,14 @@
     overflow: hidden;
     transition: all 1s;
     width: 0px;
-    min-height: 100%;
+
 
 }
 
 
 
 
-.container {
-    height: 100%;
-}
+
 
 .logout {
     position: fixed;

@@ -9,10 +9,13 @@ export function useDatabase() {
             "Content-Type": "application/json"
         };
 
-        const options: RequestInit = {
-            method,
-            headers,
-        };
+        let options: RequestInit = {
+            method
+        }
+
+        if (method !== "GET") {
+            options.headers = headers;
+        }
 
         if (body) {
             options.body = JSON.stringify(body);
@@ -23,7 +26,7 @@ export function useDatabase() {
     };
 
     const sign_up = async (name: string, email: string, password: string) => {
-        const url = `${process.env.NEXT_PUBLIC_DB_CHECK_USER}`;
+        const url = `${process.env.NEXT_PUBLIC_DB_SIGN_UP}`;
         const method = "POST";
         const body = {
             name: name,
@@ -34,30 +37,28 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     };
 
-
     const sign_in = async (email: string, password: string) => {
-        const result = await fetch(`${process.env.NEXT_PUBLIC_DB_LOGIN}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(
-                {
-                    email: email,
-                    password: password
-                }
-            )
-        });
-        const data = await result.json();
-        if (result.ok) {
-            return data
-        } else {
-            return false
-        }
+        const url = `${process.env.NEXT_PUBLIC_DB_LOGIN}`;
+        const method = "POST";
+        const body = {
+            email: email,
+            password: password
+        };
+
+        return fetchApi(url, method, body);
     }
 
-    return {
+    const market = async () => {
+        const url = `${process.env.NEXT_PUBLIC_DB_MARKET}`;
+        const method = "GET";
 
+        return fetchApi(url, method);
+    }
+
+
+
+    return {
+        market,
         sign_up,
         sign_in
     };
