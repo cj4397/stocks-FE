@@ -9,7 +9,7 @@ export default function Tabs(props: any) {
         <div className="tabs">
             <ul>
                 {accounts.map((e: any) => (
-                    <li className="is-active"><a>{e}</a></li>
+                    <li key={e} className="is-active"><a>{e}</a></li>
                 ))}
             </ul>
         </div>

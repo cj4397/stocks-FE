@@ -5,7 +5,7 @@ import { useDatabase } from '@/app/components/api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
-export default function page({ params }: any) {
+export default function Page({ params }: any) {
     const { market } = useDatabase()
     const [data, setData]: any = useState()
     const [loader, setLoader] = useState(true)
