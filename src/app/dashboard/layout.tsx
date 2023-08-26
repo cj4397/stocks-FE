@@ -1,12 +1,14 @@
 'use client';
 import Sidenav from "../components/sidenav/sidenav"
 import { useAuth } from "../components/auth";
+import { useRouter } from 'next/navigation';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-    // const { logout, token } = useAuth()
-    // if (token === '') {
-    //     logout()
-    // }
+    const route = useRouter();
+    const { token } = useAuth()
+    if (!token || token === '') {
+        route.push('/')
+    }
     return (
         <main className=" is-flex is-flex-direction-row h-100">
             <div className="has-background-black">
