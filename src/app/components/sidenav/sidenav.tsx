@@ -59,7 +59,7 @@ export default function Sidenav() {
 
 
                 <ul className={`menu-list ${style.logout} ${show ? style.show : ''}`}>
-                    {/* <li ><a onClick={() => logout()}>Log Out</a></li> */}
+                    <li ><a onClick={() => logout()}>Log Out</a></li>
                 </ul>
 
             </aside>
