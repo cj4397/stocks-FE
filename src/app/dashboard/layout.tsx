@@ -7,11 +7,11 @@ import Sidenav from "../components/sidenav/sidenav"
 
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const { token, logout } = useAuth()
+    // const { token, logout } = useAuth()
 
-    if (token == null) {
-        logout()
-    }
+    // if (token == null) {
+
+    // }
 
 
     return (
