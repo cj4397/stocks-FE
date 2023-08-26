@@ -41,7 +41,7 @@ export default function Auth(props: {
 
         setToken(null);
         setName(null);
-        router.push('/')
+
     };
 
 
@@ -53,7 +53,7 @@ export default function Auth(props: {
             login,
             logout,
         }),
-        []
+        [token]
     );
 
     return <AuthContext.Provider value={value}> {props.children}</AuthContext.Provider>
