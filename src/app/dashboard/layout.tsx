@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const router = useRouter()
 
     if (token === '') {
-        return router.push('/login')
+        return router.replace('/login')
     }
 
 
