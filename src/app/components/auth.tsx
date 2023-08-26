@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, createContext, useContext } from "react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+
 
 
 import useLocalStorage from "./storage";
@@ -27,7 +28,7 @@ export default function Auth(props: {
 }) {
     const [token, setToken] = useLocalStorage("Token", null);
     const [name, setName] = useLocalStorage("Name", null);
-
+    const router = useRouter()
 
 
 
@@ -40,10 +41,11 @@ export default function Auth(props: {
 
         setToken(null);
         setName(null);
-        redirect('/')
+        router.push('/')
     };
 
 
+    console.log(token)
     const value = useMemo(
         () => ({
             name,
@@ -51,7 +53,7 @@ export default function Auth(props: {
             login,
             logout,
         }),
-        [token]
+        []
     );
 
     return <AuthContext.Provider value={value}> {props.children}</AuthContext.Provider>

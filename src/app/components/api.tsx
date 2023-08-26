@@ -3,6 +3,7 @@ import { useAuth } from "./auth";
 
 export function useDatabase() {
     const { token } = useAuth()
+    console.log(token)
 
     const fetchApi = async (url: string, method: string, body?: any) => {
         const headers = {

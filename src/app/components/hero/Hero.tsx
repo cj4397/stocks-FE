@@ -1,7 +1,9 @@
 'use client';
 import React from 'react'
+import { useAuth } from '../auth'
 
-export default function Hero(props: any) {
+export default function Hero() {
+    const { name } = useAuth()
     return (
         <section className="hero is-small">
             <div className="hero-body">
@@ -9,7 +11,7 @@ export default function Hero(props: any) {
                     Welcome Back!
                 </p>
                 <p className="subtitle">
-                    {props.name}
+                    {name}
                 </p>
             </div>
         </section>

@@ -8,9 +8,12 @@ import { useDatabase } from '../components/api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
+
 export default function Dashboard() {
     const [accounts, setAccounts] = useState([])
     const { trader } = useDatabase()
+
+
 
     async function get_data() {
         const response = await trader()
@@ -25,7 +28,7 @@ export default function Dashboard() {
     return (
         <main>
 
-            <Hero name={'name'}></Hero>
+            <Hero ></Hero>
             {(accounts.length !== 0) ?
                 (<>
                     <Tabs accounts={'accounts'}></Tabs>
