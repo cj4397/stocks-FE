@@ -48,6 +48,16 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     }
 
+    const trader = async () => {
+        const url = `${process.env.NEXT_PUBLIC_DB_TRADER}`;
+        const method = "Post";
+        const body = {
+            token: token
+        };
+
+        return fetchApi(url, method, body);
+    }
+
     const market = async () => {
         const url = `${process.env.NEXT_PUBLIC_DB_MARKET}`;
         const method = "GET";
@@ -88,6 +98,7 @@ export function useDatabase() {
     }
 
     return {
+        trader,
         admin_confirm,
         admin,
         application,

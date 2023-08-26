@@ -25,8 +25,8 @@ export const useAuth = () => {
 export default function Auth(props: {
     children: React.ReactNode
 }) {
-    const [token, setToken] = useLocalStorage("Token", '');
-    const [name, setName] = useLocalStorage("Name", '');
+    const [token, setToken] = useLocalStorage("Token", null);
+    const [name, setName] = useLocalStorage("Name", null);
 
 
 
@@ -38,8 +38,8 @@ export default function Auth(props: {
 
     const logout = () => {
 
-        setToken('');
-        setName('');
+        setToken(null);
+        setName(null);
         redirect('/')
     };
 

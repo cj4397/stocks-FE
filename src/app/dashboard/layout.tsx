@@ -7,9 +7,9 @@ import { redirect } from "next/navigation";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
 
     const { token } = useAuth()
-    if (!token || token === '') {
-        redirect('/')
-    }
+    // if (!token || token === '') {
+    //     redirect('/')
+    // }
     return (
         <main className=" is-flex is-flex-direction-row h-100">
             <div className="has-background-black">
