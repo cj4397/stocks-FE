@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, createContext, useContext } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 
@@ -45,7 +45,7 @@ export default function Auth(props: {
     };
 
 
-    console.log(token)
+
     const value = useMemo(
         () => ({
             name,

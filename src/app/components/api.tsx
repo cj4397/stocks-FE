@@ -3,7 +3,7 @@ import { useAuth } from "./auth";
 
 export function useDatabase() {
     const { token } = useAuth()
-    console.log(token)
+
 
     const fetchApi = async (url: string, method: string, body?: any) => {
         const headers = {
@@ -49,7 +49,7 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     }
 
-    const trader = async () => {
+    const trader = async (token: string) => {
         const url = `${process.env.NEXT_PUBLIC_DB_TRADER}`;
         const method = "Post";
         const body = {

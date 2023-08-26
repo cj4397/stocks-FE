@@ -1,17 +1,12 @@
 'use client';
 import Sidenav from "../components/sidenav/sidenav"
-import { useAuth } from "../components/auth";
 
-import { redirect } from "next/navigation";
+
+
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
 
-    const { token, name } = useAuth()
 
-    if (token === null) {
-
-        // redirect('/')
-    }
     return (
         <main className=" is-flex is-flex-direction-row h-100">
             <div className="has-background-black">

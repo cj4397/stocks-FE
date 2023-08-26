@@ -7,16 +7,18 @@ import { Request } from '../components/login/login&signup';
 import { useDatabase } from '../components/api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../components/auth';
 
 
 export default function Dashboard() {
     const [accounts, setAccounts] = useState([])
     const { trader } = useDatabase()
+    const { token } = useAuth()
 
 
 
     async function get_data() {
-        const response = await trader()
+        const response = await trader(token)
         console.log(response)
     }
 
@@ -28,7 +30,7 @@ export default function Dashboard() {
     return (
         <main>
 
-            <Hero ></Hero>
+            <Hero name={"name"}></Hero>
             {(accounts.length !== 0) ?
                 (<>
                     <Tabs accounts={'accounts'}></Tabs>
