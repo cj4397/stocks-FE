@@ -41,7 +41,7 @@ export default function Auth(props: {
 
         setToken(null);
         setName(null);
-
+        router.push('/login')
     };
 
 
