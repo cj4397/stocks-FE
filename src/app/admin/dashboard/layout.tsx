@@ -1,16 +1,20 @@
 'use client';
-import Sidenav from "../components/sidenav/sidenav"
-import { useAuth } from "../components/auth";
+import React from 'react'
+import { useAuth } from '@/app/components/auth';
+import Sidenav_admin from '../components/nav/Sidenav_admin';
+
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const { logout, token } = useAuth()
+
     if (token === null) {
         logout()
     }
+
     return (
         <main className=" is-flex is-flex-direction-row h-100">
             <div className="has-background-black">
-                <Sidenav></Sidenav>
+                <Sidenav_admin></Sidenav_admin>
             </div>
             <div className="w-100 h-100 overflow">
 

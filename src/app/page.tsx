@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import styles from './page.module.css'
-
 import { Login, Sign_up } from "./components/login/login&signup";
 
-export default function Home() {
 
+export default function Home() {
   const [slide, setSlide] = useState(false);
+
 
 
   const slide_animation = () => {

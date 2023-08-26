@@ -1,14 +1,14 @@
 'use client';
+
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { useAuth } from "../auth"
+import { useAuth } from '@/app/components/auth';
 import style from './sidenav.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
-
 import { usePathname } from "next/navigation";
 
-export default function Sidenav() {
+export default function Sidenav_admin() {
     const { logout } = useAuth()
     const [show, setShow] = useState(true)
     const [icon, setIcon] = useState(<FontAwesomeIcon icon={faAnglesLeft} />)
@@ -24,20 +24,32 @@ export default function Sidenav() {
     }
 
     return (
-
         <div className={`${style.container} is-flex is-flex-direction-row h-100 `}>
             <aside className={`${style.sidenav} ${show ? style.show : ''}`}>
+
                 <p className="menu-label">
-                    General
+                    Users
                 </p>
                 <ul className="menu-list">
-                    <li className={pathname == "/dashboard" ? "active" : ""}><Link href='/dashboard'>Dashboard</Link></li>
+                    <li className={(pathname == "/admin/dashboard/request") ? "active" : ""} >
+                        <Link href={{
+                            pathname: '/admin/dashboard/request'
+                        }}
+                            as='/admin/dashboard/request'
+                        >User Requests</Link></li>
+
+                    <li className={(pathname == "/admin/dashboard/users") ? "active" : ""}><Link href={{
+                        pathname: '/admin/dashboard/users'
+                    }}
+                        as='/admin/dashboard/users'>Traders</Link></li>
+
 
                 </ul>
+
                 <p className="menu-label">
-                    Market
+                    Transactions
                 </p>
-                <ul className="menu-list">
+                <ul className='menu-list'>
                     <li className={(pathname == "/dashboard/low") ? "active" : ""} >
                         <Link href={{
                             pathname: '/dashboard/low',
@@ -45,16 +57,7 @@ export default function Sidenav() {
                         }}
                             as='/dashboard/low'
                         >Low Tier Market</Link></li>
-                    <li className={(pathname == "/dashboard/mid") ? "active" : ""}><Link href={{
-                        pathname: '/dashboard/mid',
-                        query: { market: 'mid' },
-                    }}
-                        as='/dashboard/mid'>Mid Tier Market</Link></li>
-                    <li className={(pathname == "/dashboard/high") ? "active" : ""}><Link href={{
-                        pathname: '/dashboard/high',
-                        query: { market: 'high' },
-                    }}
-                        as='/dashboard/high'>High Tier Market</Link></li>
+
                 </ul>
 
 
@@ -65,6 +68,5 @@ export default function Sidenav() {
             </aside>
             <button onClick={change}>{icon}</button>
         </div>
-
     )
 }

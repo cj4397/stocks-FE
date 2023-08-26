@@ -1,8 +1,8 @@
 
-
+import { useAuth } from "./auth";
 
 export function useDatabase() {
-
+    const { token } = useAuth()
 
     const fetchApi = async (url: string, method: string, body?: any) => {
         const headers = {
@@ -55,9 +55,42 @@ export function useDatabase() {
         return fetchApi(url, method);
     }
 
+    const application = async (nickname: string) => {
+        const url = `${process.env.NEXT_PUBLIC_DB_REQUEST}`;
+        const method = "POST";
+        const body = {
+            token: token,
+            nickname: nickname
+        };
+        return fetchApi(url, method, body);
+    }
 
+    const admin = async () => {
+        const url = `${process.env.NEXT_PUBLIC_DB_ADMIN}`;
+        const method = "POST";
+        const body = {
+            token: token
+        };
+
+        return fetchApi(url, method, body);
+    }
+
+    const admin_confirm = async (nickname: string, email: string) => {
+        const url = `${process.env.NEXT_PUBLIC_DB_CONFIRM}`;
+        const method = "PUT";
+        const body = {
+            nickname: nickname,
+            email: email,
+            token: token
+        };
+
+        return fetchApi(url, method, body);
+    }
 
     return {
+        admin_confirm,
+        admin,
+        application,
         market,
         sign_up,
         sign_in

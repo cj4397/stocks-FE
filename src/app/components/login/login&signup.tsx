@@ -19,8 +19,14 @@ export function Sign_up() {
 
     async function signup() {
         const result = await sign_up(name, email, password)
-        console.log(result)
-        if (result) {
+
+        if (result.admin) {
+            login(
+                result.user,
+                result.token
+            )
+            route.push('/admin/dashboard')
+        } else if (result.token) {
             login(
                 result.user,
                 result.token
@@ -58,7 +64,14 @@ export function Login() {
 
     async function signin() {
         const result = await sign_in(email, password)
-        if (result) {
+
+        if (result.admin) {
+            login(
+                result.user,
+                result.token
+            )
+            route.push('/admin/dashboard')
+        } else if (result.token) {
             login(
                 result.user,
                 result.token
@@ -87,3 +100,37 @@ export function Login() {
     )
 }
 
+
+export function Request() {
+    const { application } = useDatabase()
+    const [nickname, setNickname] = useState('')
+
+    async function request_application() {
+        const result = await application(nickname)
+        if (result.message) {
+            console.log("invalid email or password")
+        }
+    }
+
+    const handleSubmit_sign_in = (e: any) => {
+        e.preventDefault();
+        request_application()
+    }
+
+    return (
+        <form className='has-text-centered' onSubmit={handleSubmit_sign_in}>
+            <h1 className='is-size-2 has-text-weight-semibold'>Make a Request to create a Trader Entity</h1>
+
+
+
+            <label className="label">Nickname</label>
+            <input className={style.input} id="user_email" type="text" placeholder="Nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} required />
+
+
+            <button type='submit' >Request</button>
+            <br />
+            <br />
+            <h4 className='is-size-7 has-text-left'><p className='has-text-weight-bold'>Note:</p> Trader Entity will be made when the Admin approved your request</h4>
+        </form>
+    )
+}
