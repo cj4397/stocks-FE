@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const { token } = useAuth()
     const router = useRouter()
-    if (token == null) {
+
+    if (token === '') {
         return router.push('/login')
     }
 
