@@ -10,6 +10,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../components/auth';
 
 
+
 export default function Dashboard() {
     const [accounts, setAccounts] = useState([])
     const { trader } = useDatabase()
