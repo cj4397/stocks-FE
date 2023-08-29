@@ -4,7 +4,7 @@ import { useDatabase } from '@/app/components/api';
 import Modal from '../../components/modal/Modal';
 
 
-export default function page() {
+export default function Page() {
     const [item_list, setlist] = useState([])
     const { history } = useDatabase()
     const [modal_open, setModal] = useState(false)

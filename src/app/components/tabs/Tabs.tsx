@@ -21,7 +21,7 @@ export default function Tabs(props: any) {
                 </div>
 
                 {accounts.map((e: any) => (
-                    <div className={`${(current == e.name) ? "" : "is-hidden"} tile is-ancestor`}>
+                    <div key={e.name} className={`${(current == e.name) ? "" : "is-hidden"} tile is-ancestor`}>
                         <div className="tile is-parent">
                             <div className="tile is-child box">
                                 <p className="title">Transaction History</p>
