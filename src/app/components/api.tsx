@@ -49,7 +49,7 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     }
 
-    const trader = async (token: string) => {
+    const trader = async () => {
         const url = `${process.env.NEXT_PUBLIC_DB_TRADER}`;
         const method = "Post";
         const body = {
@@ -98,7 +98,18 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     }
 
+    const history = async () => {
+        const url = `${process.env.NEXT_PUBLIC_DB_HISTORY}`;
+        const method = "POST";
+        const body = {
+            token: token
+        };
+
+        return fetchApi(url, method, body);
+    }
+
     return {
+        history,
         trader,
         admin_confirm,
         admin,

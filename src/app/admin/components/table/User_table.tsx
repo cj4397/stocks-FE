@@ -1,6 +1,9 @@
 'use client';
 import React, { useState } from 'react'
 import { useDatabase } from '@/app/components/api';
+import Dropdown from '../dropdown/Dropdown';
+import Modal_TH from '../modal/Modal_TH';
+import Modal_user from '../modal/Modal_user';
 
 
 
@@ -9,15 +12,14 @@ export default function Table(props: any) {
     const { admin_confirm } = useDatabase()
     const stock_list = users
     const [current_page, setCurrentPage] = useState(1)
+    const [modal_open, setModal] = useState('')
+    const [data, setData] = useState({})
+    const [history, setHistory] = useState('')
 
     const per_page = 10
     const total_pages = Math.ceil(stock_list.length / per_page);
 
     const show = stock_list.slice((current_page - 1) * per_page, current_page * per_page)
-
-    const get_user = (user: any) => {
-        console.log(user)
-    }
 
     const approve = (nickname: string, email: string) => {
         async function get_data(nickname: string, email: string) {
@@ -38,6 +40,8 @@ export default function Table(props: any) {
         get_data(user)
         console.log(user)
     }
+
+
 
 
 
@@ -69,7 +73,8 @@ export default function Table(props: any) {
 
                 <tbody>
                     {show.map((e: any) => (
-                        <tr key={e.id} onClick={() => get_user(e)}>
+
+                        <tr key={e.id} >
                             {(mode === 'request') ? (
                                 <>
                                     <th >{e.nickname}</th>
@@ -82,8 +87,16 @@ export default function Table(props: any) {
                                 </>) : (
                                 <>
                                     <th >{e.name}</th>
-                                    <td>{e.stock}</td>
-                                    <td>{e.history}</td>
+                                    <td>
+                                        {(e.stock.length !== 0) &&
+                                            <Dropdown setModal={setModal} date={false} data={e.stock} get_data={setData} />}
+
+                                    </td>
+                                    <td>
+                                        {(e.transaction_history.length !== 0) &&
+                                            <Dropdown setModal={setModal} date={true} data={e.transaction_history} get_data={setData} ></Dropdown>}
+
+                                    </td>
                                     <td>{e.created_at}</td>
                                 </>)}
 
@@ -135,6 +148,15 @@ export default function Table(props: any) {
 
                 </ul>
             </nav>
+            {(modal_open === 'history') ?
+                (<>
+                    <Modal_TH data={data} active={modal_open} setActive={setModal} />
+                </>)
+                : (<>
+                    <Modal_user data={data} active={modal_open} setActive={setModal} />
+                </>)
+            }
+
         </div>
     )
 }

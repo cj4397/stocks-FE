@@ -1,55 +1,69 @@
 'use client';
-import React, { useState } from 'react'
-import Market_modal from '../modal/Market_modal';
+import React, { useEffect, useState } from 'react'
+import { useDatabase } from '@/app/components/api';
+import Modal from '../../components/modal/Modal';
 
 
-export default function Table(props: any) {
-    const { stocks } = props
-    const stock_list = stocks
-    const [current_page, setCurrentPage] = useState(1)
+export default function page() {
+    const [item_list, setlist] = useState([])
+    const { history } = useDatabase()
     const [modal_open, setModal] = useState(false)
-    const [item, setItem] = useState({})
+    const [data, setData] = useState({})
 
-    const per_page = 10
-    const total_pages = Math.ceil(stock_list.length / per_page);
+    const [current_page, setCurrentPage] = useState(1)
 
-    const show = stock_list.slice((current_page - 1) * per_page, current_page * per_page)
-
-    const buy = (item: any) => {
-        setItem(item)
-        setModal(true)
+    async function get_data() {
+        const response = await history()
+        response.transaction.forEach((e: any) => {
+            e.trader_info = (JSON.parse(e.trader_info))
+            e.stock_info = (JSON.parse(e.stock_info))
+        });
+        setlist(response.transaction)
     }
 
+    useEffect(() => {
+        get_data()
+    }, [])
+
+    const per_page = 10
+    const total_pages = Math.ceil(item_list.length / per_page);
+
+    const show = item_list.slice((current_page - 1) * per_page, current_page * per_page)
+
+    const item = (history: any) => {
+        setData(history)
+        setModal(true)
+        console.log(history)
+    }
 
     return (
-
         <div className='w-100 '>
 
             <table className='table w-100'>
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Currency</th>
-                        <th>Amount</th>
-                        <th>Percent_change</th>
-                        <th>Volume</th>
-                        <th>Symbol</th>
+                        <th>Money</th>
+                        <th>Asset</th>
+                        <th>created_at</th>
                     </tr>
                 </thead>
 
                 <tbody>
+
+
                     {show.map((e: any) => (
-                        <tr key={e.name}
-                            onClick={() => buy(e)}
-                        >
-                            <th >{e.name}</th>
-                            <td>{e.price.currency}</td>
-                            <td>{e.price.amount}</td>
-                            <td>{e.percent_change}</td>
-                            <td>{e.volume}</td>
-                            <td>{e.symbol}</td>
+
+                        <tr onClick={() => item(e.stock_info)} key={e.id}>
+
+                            <th>{e.trader_info.name}</th>
+                            <td>{e.trader_info.invest}</td>
+                            <td>{e.trader_info.bought}</td>
+                            <td>{e.created_at}</td>
                         </tr>
                     ))}
+
+
 
                 </tbody>
 
@@ -95,9 +109,7 @@ export default function Table(props: any) {
 
                 </ul>
             </nav>
-            {modal_open && <Market_modal item={item} modal_open={modal_open} setModal={setModal} />}
-
-
+            <Modal data={data} active={modal_open} setActive={setModal}></Modal>
         </div>
     )
 }

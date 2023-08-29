@@ -1,24 +1,17 @@
 'use client';
 import React, { useState } from 'react'
-import Market_modal from '../modal/Market_modal';
 
 
-export default function Table(props: any) {
+export default function History(props: any) {
+
     const { stocks } = props
     const stock_list = stocks
     const [current_page, setCurrentPage] = useState(1)
-    const [modal_open, setModal] = useState(false)
-    const [item, setItem] = useState({})
 
     const per_page = 10
     const total_pages = Math.ceil(stock_list.length / per_page);
 
     const show = stock_list.slice((current_page - 1) * per_page, current_page * per_page)
-
-    const buy = (item: any) => {
-        setItem(item)
-        setModal(true)
-    }
 
 
     return (
@@ -39,9 +32,7 @@ export default function Table(props: any) {
 
                 <tbody>
                     {show.map((e: any) => (
-                        <tr key={e.name}
-                            onClick={() => buy(e)}
-                        >
+                        <tr key={e.name}>
                             <th >{e.name}</th>
                             <td>{e.price.currency}</td>
                             <td>{e.price.amount}</td>
@@ -95,9 +86,7 @@ export default function Table(props: any) {
 
                 </ul>
             </nav>
-            {modal_open && <Market_modal item={item} modal_open={modal_open} setModal={setModal} />}
-
-
         </div>
     )
 }
+

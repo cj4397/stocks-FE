@@ -50,13 +50,11 @@ export default function Sidenav_admin() {
                     Transactions
                 </p>
                 <ul className='menu-list'>
-                    <li className={(pathname == "/dashboard/low") ? "active" : ""} >
+                    <li className={(pathname == "/admin/dashboard/transactions") ? "active" : ""} >
                         <Link href={{
-                            pathname: '/dashboard/low',
-                            query: { market: 'low' },
+                            pathname: '/admin/dashboard/transactions'
                         }}
-                            as='/dashboard/low'
-                        >Low Tier Market</Link></li>
+                        >History</Link></li>
 
                 </ul>
 
