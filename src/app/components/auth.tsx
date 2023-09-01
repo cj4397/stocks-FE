@@ -1,18 +1,21 @@
 'use client';
 
-import { useMemo, createContext, useContext, useEffect } from "react";
+import { useMemo, createContext, useContext } from "react";
 
-import { useRouter } from "next/navigation";
+
 
 
 import useLocalStorage from "./storage";
 
 const initialState = {
+    traders: [],
+    get_traders: (traders_list: any[]) => { },
     name: '',
     token: '',
     login: (name: string, token: string) => { },
     logout: () => { },
 };
+
 
 
 const AuthContext = createContext(initialState);
@@ -28,7 +31,8 @@ export default function Auth(props: {
 }) {
     const [token, setToken] = useLocalStorage("Token", '');
     const [name, setName] = useLocalStorage("Name", '');
-    const router = useRouter()
+    const [traders, setTraders] = useLocalStorage("Traders", '');
+
 
 
 
@@ -44,10 +48,16 @@ export default function Auth(props: {
 
     };
 
+    const get_traders = (traders_list: any[]) => {
+        setTraders(traders_list)
+    }
+
 
 
     const value = useMemo(
         () => ({
+            traders,
+            get_traders,
             name,
             token,
             login,

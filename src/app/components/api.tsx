@@ -108,7 +108,36 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     }
 
+    const buy = async (item: any, trader: string, invest: any) => {
+        const url = `${process.env.NEXT_PUBLIC_DB_BUY}`;
+        const method = "POST";
+        const body = {
+            name: item.name,
+            currency: item.price.currency,
+            amount: parseFloat(item.price.amount),
+            percent_change: parseFloat(item.percent_change),
+            volume: parseFloat(item.volume),
+            symbol: item.symbol,
+            trader: trader,
+            invest: parseFloat(invest)
+        };
+
+        return fetchApi(url, method, body);
+    }
+
+    const sell = async () => {
+        const url = `${process.env.NEXT_PUBLIC_DB_SELL}`;
+        const method = "POST";
+        const body = {
+            token: token
+        };
+
+        return fetchApi(url, method, body);
+    }
+
     return {
+        buy,
+        sell,
         history,
         trader,
         admin_confirm,

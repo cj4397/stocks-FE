@@ -23,12 +23,12 @@ export default function Page({ params }: any) {
         case 'users':
           setData(response.users)
           setMode('all')
-          console.log(response)
+
           break;
         case 'request':
           setData(response.request)
           setMode('request')
-          console.log(response)
+
           break;
       }
     }
@@ -58,7 +58,7 @@ export default function Page({ params }: any) {
         {(data.length !== 0) ? <User_table users={data} mode={mode} setRefresh={setRefresh} refresh={refresh}></User_table> :
           (<>
             <h1 className='has-text-centered is-size-2'>No Activity Here</h1>
-            {/* <h3 className='has-text-centered is-size-4'>{data.details}</h3> */}
+
           </>)
         }
 

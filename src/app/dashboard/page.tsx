@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import Hero from '../components/hero/Hero'
 import Tabs from '../components/tabs/Tabs'
-import PieChart from '../components/chart/Chart';
 import { Request } from '../components/login/login&signup';
 import { useDatabase } from '../components/api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +15,7 @@ export default function Dashboard() {
     const [accounts, setAccounts] = useState([])
     const { trader } = useDatabase()
     const [loader, setLoader] = useState(true)
-    const { logout } = useAuth()
+    const { logout, get_traders } = useAuth()
 
 
 
@@ -26,6 +25,11 @@ export default function Dashboard() {
 
         console.log(response.trader)
         if (response.trader) {
+            let list: any[] = []
+            response.trader.forEach((e: any) => {
+                list.push(e.name)
+            });
+            get_traders(list)
             setAccounts(response.trader)
             setLoader(false)
         } else {
@@ -56,25 +60,6 @@ export default function Dashboard() {
                         (<>
                             <Tabs accounts={accounts}></Tabs>
 
-                            {/* <div className="tile is-ancestor">
-                                <div className="tile is-parent">
-                                    <div className="tile is-child box">
-                                        <p className="title">Transaction History</p>
-
-                                    </div>
-                                </div>
-                                <div className="tile is-6 is-vertical is-parent">
-                                    <div className="tile is-child box">
-                                        <p className="title">Balance</p>
-                                        Balance:infinite
-                                    </div>
-                                    <div className="tile is-child box">
-                                        <p className="title">Assets</p>
-                                        <PieChart></PieChart>
-                                    </div>
-                                </div>
-
-                            </div> */}
                         </>) : (
                             <Request />
                         )

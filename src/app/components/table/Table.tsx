@@ -1,10 +1,13 @@
 'use client';
 import React, { useState } from 'react'
 import Market_modal from '../modal/Market_modal';
+import { useAuth } from '../auth';
+
 
 
 export default function Table(props: any) {
     const { stocks } = props
+    const { traders } = useAuth()
     const stock_list = stocks
     const [current_page, setCurrentPage] = useState(1)
     const [modal_open, setModal] = useState(false)
@@ -95,7 +98,7 @@ export default function Table(props: any) {
 
                 </ul>
             </nav>
-            {modal_open && <Market_modal item={item} modal_open={modal_open} setModal={setModal} />}
+            {(modal_open && traders.length !== 0) && <Market_modal item={item} modal_open={modal_open} setModal={setModal} />}
 
 
         </div>

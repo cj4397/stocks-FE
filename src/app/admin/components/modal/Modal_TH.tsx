@@ -75,7 +75,7 @@ export default function Modal_TH(props: any) {
                             </div>
                             <div className="level-item has-text-centered">
                                 <div>
-                                    <p className="heading">Money</p>
+                                    <p className="heading">Cost</p>
                                     <p className="title">{user.invest}</p>
                                 </div>
                             </div>

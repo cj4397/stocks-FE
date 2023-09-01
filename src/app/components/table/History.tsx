@@ -1,18 +1,39 @@
 'use client';
 import React, { useState } from 'react'
+import History_modal from '../modal/History_modal';
 
 
 export default function History(props: any) {
+    const [modal_open, setModal] = useState(false)
+    const [user, setUser] = useState({})
+    const [stock, setStock] = useState({})
+    const [date, setDate] = useState('')
+    const { history } = props
 
-    const { stocks } = props
-    const stock_list = stocks
+
+
+    const stock_list = history
     const [current_page, setCurrentPage] = useState(1)
 
-    const per_page = 10
+    const per_page = 3
     const total_pages = Math.ceil(stock_list.length / per_page);
 
     const show = stock_list.slice((current_page - 1) * per_page, current_page * per_page)
 
+    const getdata = (trader: any, stock: any, date: string) => {
+        setUser(JSON.parse(trader))
+        setStock(JSON.parse(stock))
+        setDate(date)
+
+        setModal(true)
+    }
+
+    const re_date = (date: any) => {
+
+        const original = new Date(date)
+        const result = `${original.getMonth().toString().padStart(2, '0')}  -  ${original.getDay().toString().padStart(2, '0')}  -  ${original.getFullYear()}`
+        return result
+    }
 
     return (
 
@@ -21,24 +42,17 @@ export default function History(props: any) {
             <table className='table w-100'>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Currency</th>
-                        <th>Amount</th>
-                        <th>Percent_change</th>
-                        <th>Volume</th>
-                        <th>Symbol</th>
+
+                        <th>Date</th>
+
                     </tr>
                 </thead>
 
                 <tbody>
                     {show.map((e: any) => (
-                        <tr key={e.name}>
-                            <th >{e.name}</th>
-                            <td>{e.price.currency}</td>
-                            <td>{e.price.amount}</td>
-                            <td>{e.percent_change}</td>
-                            <td>{e.volume}</td>
-                            <td>{e.symbol}</td>
+                        <tr onClick={() => getdata(e.trader_info, e.stock_info, re_date(e.updated_at))} key={e.id}>
+
+                            <td>{re_date(e.updated_at)}</td>
                         </tr>
                     ))}
 
@@ -86,6 +100,8 @@ export default function History(props: any) {
 
                 </ul>
             </nav>
+            {modal_open && <History_modal setModal={setModal} modal_open={modal_open} date={date} user={user} stock={stock} />}
+
         </div>
     )
 }
