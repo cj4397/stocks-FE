@@ -17,6 +17,7 @@ export default function Page({ params }: any) {
         switch (params.market) {
             case 'low':
                 setData(response.low)
+                console.log(response.low.length)
                 break;
             case 'mid':
                 setData(response.mid)
