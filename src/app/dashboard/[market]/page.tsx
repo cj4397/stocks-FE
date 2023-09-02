@@ -7,7 +7,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 export default function Page({ params }: any) {
     const { market } = useDatabase()
-    const [data, setData]: any = useState()
+    const [data, setData]: any[] = useState([])
     const [loader, setLoader] = useState(true)
 
 
@@ -48,7 +48,8 @@ export default function Page({ params }: any) {
             ) : (<>
                 <h1 className='has-text-centered is-size-2'>{data.name}</h1>
                 <h3 className='has-text-centered is-size-4'>{data.details}</h3>
-                <Table stocks={data.stock}></Table>
+
+                {(data.length !== 0) && <Table stocks={data.stock}></Table>}
             </>)}
 
 
