@@ -18,7 +18,7 @@ export default function Page({ params }: any) {
             case 'low':
                 setData(response.low)
                 console.log(response.low)
-                console.log(response.low.length)
+                console.log(response.low.stock.length)
                 break;
             case 'mid':
                 setData(response.mid)
