@@ -13,15 +13,17 @@ export default function Table(props: any) {
     const [modal_open, setModal] = useState(false)
     const [item, setItem] = useState({})
 
-    console.log(stock_list.length)
+
     const per_page = 10
     const total_pages = Math.ceil(stock_list.length / per_page);
 
     const show = stock_list.slice((current_page - 1) * per_page, current_page * per_page)
 
     const buy = (item: any) => {
+
         setItem(item)
         setModal(true)
+        console.log('show modal')
     }
 
 
