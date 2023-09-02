@@ -13,7 +13,7 @@ export default function Page({ params }: any) {
 
     async function get_data(market: any) {
         const response = await market();
-
+        console.log(response)
         switch (params.market) {
             case 'low':
                 setData(response.low)
