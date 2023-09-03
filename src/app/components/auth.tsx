@@ -45,7 +45,7 @@ export default function Auth(props: {
 
         setToken('');
         setName('');
-
+        setTraders('');
     };
 
     const get_traders = (traders_list: any[]) => {

@@ -125,11 +125,18 @@ export function useDatabase() {
         return fetchApi(url, method, body);
     }
 
-    const sell = async () => {
+    const sell = async (item: any, trader: string, invest: any) => {
         const url = `${process.env.NEXT_PUBLIC_DB_SELL}`;
         const method = "POST";
         const body = {
-            token: token
+            name: item.name,
+            currency: item.price.currency,
+            amount: parseFloat(item.price.amount),
+            percent_change: parseFloat(item.percent_change),
+            volume: parseFloat(item.volume),
+            symbol: item.symbol,
+            trader: trader,
+            sell: parseFloat(invest)
         };
 
         return fetchApi(url, method, body);

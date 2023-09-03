@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useDatabase } from '../api';
 import { useAuth } from '../auth';
 import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 
 import style from './login.module.css'
@@ -16,10 +18,11 @@ export function Sign_up() {
     const { sign_up } = useDatabase()
     const { login } = useAuth()
     const route = useRouter();
+    const [loader, setLoader] = useState(false)
 
     async function signup() {
         const result = await sign_up(name, email, password)
-
+        setLoader(false)
         if (result.admin) {
             login(
                 result.user,
@@ -39,20 +42,30 @@ export function Sign_up() {
 
     const handleSubmit_sign_up = (e: any) => {
         e.preventDefault();
+        setLoader(true)
         signup()
     }
 
     return (
-        <form className={style.form} onSubmit={handleSubmit_sign_up} autoComplete="on">
-            <h1>Create Account</h1>
+        <>
+            {loader ? (<>
+                <div className='h-100 is-flex is-justify-content-center is-align-items-center'>
+                    <FontAwesomeIcon icon={faCog} spin />
 
-            <input className={style.input} id="new_name" type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-            <input className={style.input} id="new_email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <input className={style.input} id="new_password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
+            </>) : (<>
+                <form className={style.form} onSubmit={handleSubmit_sign_up} autoComplete="on">
+                    <h1>Create Account</h1>
 
-            <button type='submit' className={style.ghost}>Sign Up</button>
-        </form>
-    )
+                    <input className={style.input} id="new_name" type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+                    <input className={style.input} id="new_email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input className={style.input} id="new_password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+                    <button type='submit' className={style.ghost}>Sign Up</button>
+                </form>
+            </>)}
+
+        </>)
 }
 
 export function Login() {
@@ -61,10 +74,11 @@ export function Login() {
     const { sign_in } = useDatabase()
     const { login } = useAuth()
     const route = useRouter();
+    const [loader, setLoader] = useState(false)
 
     async function signin() {
         const result = await sign_in(email, password)
-
+        setLoader(false)
         if (result.admin) {
             login(
                 result.user,
@@ -84,29 +98,41 @@ export function Login() {
 
     const handleSubmit_sign_in = (e: any) => {
         e.preventDefault();
+        setLoader(true)
         signin()
     }
 
     return (
-        <form className={style.form} onSubmit={handleSubmit_sign_in}>
-            <h1>Sign in</h1>
+        <>
+            {loader ? (<>
+                <div className='h-100 is-flex is-justify-content-center is-align-items-center'>
+                    <FontAwesomeIcon icon={faCog} spin />
+
+                </div>
+            </>) : (<>
+                <form className={style.form} onSubmit={handleSubmit_sign_in}>
+                    <h1>Sign in</h1>
 
 
-            <input className={style.input} id="user_email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <input className={style.input} id="user_password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <input className={style.input} id="user_email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input className={style.input} id="user_password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
-            <button type='submit' className={style.ghost}>Sign In</button>
-        </form>
-    )
+                    <button type='submit' className={style.ghost}>Sign In</button>
+                </form>
+            </>)}
+
+        </>)
 }
 
 
 export function Request() {
     const { application } = useDatabase()
     const [nickname, setNickname] = useState('')
+    const [loader, setLoader] = useState(false)
 
     async function request_application() {
         const result = await application(nickname)
+        setLoader(false)
         if (result.message) {
             console.log("invalid email or password")
         }
@@ -114,23 +140,33 @@ export function Request() {
 
     const handleSubmit_sign_in = (e: any) => {
         e.preventDefault();
+        setLoader(true)
         request_application()
     }
 
     return (
-        <form className='has-text-centered' onSubmit={handleSubmit_sign_in}>
-            <h1 className='is-size-2 has-text-weight-semibold'>Make a Request to create a Trader Entity</h1>
+        <>
+            {loader ? (<>
+                <div className='h-100 is-flex is-justify-content-center is-align-items-center'>
+                    <FontAwesomeIcon icon={faCog} spin />
+
+                </div>
+            </>) : (<>
+                <form className='has-text-centered' onSubmit={handleSubmit_sign_in}>
+                    <h1 className='is-size-2 has-text-weight-semibold'>Make a Request to create a Trader Entity</h1>
 
 
 
-            <label className="label">Nickname</label>
-            <input className={style.input} id="user_email" type="text" placeholder="Nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} required />
+                    <label className="label">Nickname</label>
+                    <input className={style.input} id="user_email" type="text" placeholder="Nickname" value={nickname} onChange={(e) => setNickname(e.target.value)} required />
 
 
-            <button type='submit' >Request</button>
-            <br />
-            <br />
-            <h4 className='is-size-7 has-text-left'><p className='has-text-weight-bold'>Note:</p> Trader Entity will be made when the Admin approved your request</h4>
-        </form>
-    )
+                    <button type='submit' >Request</button>
+                    <br />
+                    <br />
+                    <h4 className='is-size-7 has-text-left'><p className='has-text-weight-bold'>Note:</p> Trader Entity will be made when the Admin approved your request</h4>
+                </form>
+            </>)}
+
+        </>)
 }

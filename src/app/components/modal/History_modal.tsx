@@ -71,7 +71,7 @@ export default function History_modal(props: any) {
 
                 </section>
                 <footer className="modal-card-foot">
-                    <button type='submit' className="button is-success">Finish</button>
+
                     <button onClick={() => setModal(false)} className="button">Cancel</button>
                 </footer>
 

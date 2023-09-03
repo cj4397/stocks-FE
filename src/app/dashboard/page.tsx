@@ -27,7 +27,11 @@ export default function Dashboard() {
         if (response.trader) {
             let list: any[] = []
             response.trader.forEach((e: any) => {
-                list.push(e.name)
+                let stock: any[] = []
+                e.stock.forEach((s: any) => {
+                    stock.push({ name: s.name, asset: s.asset })
+                })
+                list.push({ trader: e.name, stock: stock })
             });
             get_traders(list)
             setAccounts(response.trader)
